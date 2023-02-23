@@ -1,11 +1,11 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import cookieParser from 'cookie-parser';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // DTO、バリデーションの設定
+  // DTO、バリデーションの設定。whitelist:trueとすることでクライアントから送信されたデータの内DTOに含まれないデータは省かれる
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   // CORSの設定
   app.enableCors({ credentials: true, origin: ['http://localhost:3000'] });
